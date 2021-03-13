@@ -12,7 +12,7 @@
   <title>
     
       Tag 
-       : HackThebox
+       : hackthebox
       
       |
     
@@ -100,15 +100,15 @@
 <div class="container tag-details">
   <div class="content-title">
     <h2>
-      <span>HackThebox</span>
+      <span>hackthebox</span>
     </h2>
   </div>
   
     <div class="post-list">
-      <div class="post-item" title="HackThebox Cache Writeup">
-        <span class="time-m-d">2020-05-20</span>
-        <a href="/2020/05/20/HackThebox-Cache-Writeup/">
-          <span>HackThebox Cache Writeup</span>
+      <div class="post-item" title="hackthebox-devel">
+        <span class="time-m-d">2021-03-10</span>
+        <a href="/2021/03/10/hackthebox-devel/">
+          <span>hackthebox-devel</span>
         </a>
       </div>
     </div>
@@ -367,50 +367,6 @@
         },
         error: function(xhr, status, error) {
           $resultContent.innerHTML = ""
-          if (xhr.status === 404) {
-            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
-          } else {
-            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
-          }
-        }
-      });
-      $(document).on('click', '#search-close-icon', function() {
-        $('#search-input').val('');
-        $('#search-result').html('');
-      });
-    }
-
-    var getSearchFile = function() {
-        var path = "/search.xml";
-        searchFunc(path, 'search-input', 'search-result');
-    }
-  </script>
-
-
-
-
-    </div>
-  </body>
-</html>
-', function() {
-        $('#search-input').val('');
-        $('#search-result').html('');
-      });
-    }
-
-    var getSearchFile = function() {
-        var path = "/search.xml";
-        searchFunc(path, 'search-input', 'search-result');
-    }
-  </script>
-
-
-
-
-    </div>
-  </body>
-</html>
-sultContent.innerHTML = ""
           if (xhr.status === 404) {
             $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
           } else {
