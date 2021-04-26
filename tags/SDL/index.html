@@ -11,8 +11,8 @@
   
   <title>
     
-      Bypassing OkHttp Certificate Pinning 
-      
+      Tag 
+       : SDL
       
       |
     
@@ -95,119 +95,30 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 标签详情页，展示某个标签下的文章列表，url形式：https://yoursite/tags/某个标签/ -->
 
-<!-- LaTex Display -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  }
-};
-</script>
-
-
-
-  
-
-  
-
-  
-
-  
-  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
-  <div class="container post-details" id="post-details">
-    <div class="post-content">
-      <div class="post-title">Bypassing OkHttp Certificate Pinning</div>
-      <div class="post-attach">
-        <span class="post-pubtime">
-          <i class="iconfont icon-updatetime" title="Update time"></i>
-          2021-02-19 23:25:18
-        </span>
-        
-      </div>
-      <div class="markdown-body">
-        <p>前阵子测试了一个安卓应用，发现使用了okhttp来做SSL证书绑定。我花了半天时间，尝试了各种方法来绕过SSL证书绑定，怕日后忘记，所以做个记录，日后好查阅。</p>
-<h3 id="1-Xposed-模块"><a href="#1-Xposed-模块" class="headerlink" title="#1: Xposed 模块"></a>#1: Xposed 模块</h3><ol>
-<li><a href="https://repo.xposed.info/module/mobi.acpm.sslunpinning" target="_blank" rel="noopener">SSLUnpinning</a></li>
-<li><a href="https://repo.xposed.info/module/com.virb3.trustmealready" target="_blank" rel="noopener">TrustMeAlready</a></li>
-</ol>
-<p>TrustMeAlready之前在测试其它安卓应用的时候就没成功，这次依然没成功。尝试了下SSLUnpinning，也没成功，不知道是不是操作手法不对-_-!</p>
-<h3 id="2-Frida"><a href="#2-Frida" class="headerlink" title="#2: Frida"></a>#2: Frida</h3><p>Frida的安装很简单</p>
-<ol>
-<li>pip install frida-tools</li>
-<li>下载frida-server，拷贝到安卓模拟器/data/local/tmp，并且chmod +x设置执行权限。</li>
-<li>将burpsuite证书cert-der.crt 拷贝到安卓模拟器/data/local/tmp</li>
-<li>将脚本<a href="https://codeshare.frida.re/@pcipolloni/universal-android-ssl-pinning-bypass-with-frida/" target="_blank" rel="noopener">Universal Android SSL Pinning Bypass</a>注入到应用进程中</li>
-</ol>
-<p><img src="https://captmeelo.com/static/img/16/frida-multiple-pinning.png" alt><br>尝试了<a href="https://codeshare.frida.re/browse" target="_blank" rel="noopener">codeshare</a>上好几个ssl pinning脚本都失败了。。</p>
-<h3 id="3-手动修改apk，重打包"><a href="#3-手动修改apk，重打包" class="headerlink" title="#3: 手动修改apk，重打包"></a>#3: 手动修改apk，重打包</h3><p>分析应用日志：adb logcat ｜ grep app包</p>
-<p>分析发现，有一串奇怪的sha1/xxxx。查了下资料，应该是证书指纹这么个东西。参考：<a href="https://blog.51cto.com/dashdotdash/1963485" target="_blank" rel="noopener">获取SSL证书指纹</a><br><img src="https://captmeelo.com/static/img/16/log.png" alt></p>
-<p>如果证书链中的证书指纹匹配到pinned中的证书指纹，则通过认证。</p>
-<p>解压apk包，找到pinned 证书指纹的位置:/res/values/arrays.xml<br><img src="https://captmeelo.com/static/img/16/location.png" alt></p>
-<p>将burp的证书指纹写入到arrays.xml<br><img src="https://captmeelo.com/static/img/16/modification.png" alt><br>然后重新打包apk<br><img src="https://captmeelo.com/static/img/16/rebuild.png" alt><br><img src="https://captmeelo.com/static/img/16/install.png" alt></p>
-<p>最后，终于如愿以偿抓到了https数据包<br><img src="https://captmeelo.com/static/img/16/burp.png" alt></p>
-
-      </div>
-      
-        <div class="prev-or-next">
-          <div class="post-foot-next">
-            
-              <a href="/2021/02/11/sonar-gitlab-jenkins/" target="_self">
-                <i class="iconfont icon-chevronleft"></i>
-                <span>Prev</span>
-              </a>
-            
-          </div>
-          <div class="post-attach">
-            <span class="post-pubtime">
-              <i class="iconfont icon-updatetime" title="Update time"></i>
-              2021-02-19 23:25:18
-            </span>
-            
-          </div>
-          <div class="post-foot-prev">
-            
-              <a href="/2021/03/10/hackthebox-devel/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-    </div>
-    
-  <div class="post-catalog" id="catalog">
-    <div class="title">Contents</div>
-    <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Xposed-模块"><span class="toc-text">#1: Xposed 模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Frida"><span class="toc-text">#2: Frida</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-手动修改apk，重打包"><span class="toc-text">#3: 手动修改apk，重打包</span></a></li></ol>
-    </div>
+<div class="container tag-details">
+  <div class="content-title">
+    <h2>
+      <span>SDL</span>
+    </h2>
   </div>
-
   
-<script src="/js/catalog.js"></script>
-
-
-
-
-    
-      <div class="comments-container">
-        
-
-
-
-
-
+    <div class="post-list">
+      <div class="post-item" title="GitLab CI + SonarQube的代码门禁实现">
+        <span class="time-m-d">2021-02-11</span>
+        <a href="/2021/02/11/sonar-gitlab-jenkins/">
+          <span>GitLab CI + SonarQube的代码门禁实现</span>
+        </a>
       </div>
+    </div>
+  
+  <nav class="post-navigation">
     
-  </div>
-
+    <span class="page-num">1 / 1</span>
+    
+  </nav>
+</div>
 
         <div class="footer">
   <div class="social">
