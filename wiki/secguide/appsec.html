@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Sec-enterprise：应用安全 - minzhi</title>
+
+  
+    <meta name="description" content="简述对于互联网企业而言，公司的营收主要看面向互联网用户的业务系统。所以在这些业务系统上应该投入足够的安全精力和成本。如果初创型公司有足够的资金，还没有找到业务方向处在试错阶段，那么可以先招一个懂安全测试的人。如果没有足够的资金，那么可以先把安全滞后，等业务起来再说。而对于中小型公司，业务方向确定，有持续稳定的营收，那么可以增加安全成本，包括招聘更专业的安全人员、购买商业安全检测工具、安全防护工具等">
+<meta property="og:type" content="website">
+<meta property="og:title" content="应用安全">
+<meta property="og:url" content="http://example.com/wiki/secguide/appsec">
+<meta property="og:site_name" content="minzhi">
+<meta property="og:description" content="简述对于互联网企业而言，公司的营收主要看面向互联网用户的业务系统。所以在这些业务系统上应该投入足够的安全精力和成本。如果初创型公司有足够的资金，还没有找到业务方向处在试错阶段，那么可以先招一个懂安全测试的人。如果没有足够的资金，那么可以先把安全滞后，等业务起来再说。而对于中小型公司，业务方向确定，有持续稳定的营收，那么可以增加安全成本，包括招聘更专业的安全人员、购买商业安全检测工具、安全防护工具等">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/keyongxing.png">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/shujuzhongyaoxing.png">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/weixiechengdu.png">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/SDL.png">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/owasptop10-2021.png">
+<meta property="article:published_time" content="2023-09-17T06:15:34.835Z">
+<meta property="article:modified_time" content="2023-09-17T06:15:34.835Z">
+<meta property="article:author" content="minzhizhou">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/keyongxing.png">
+<meta name="twitter:creator" content="@minzhizhou1215">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+  
+
+
+
+
+<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/wiki/secguide/"><div class="main" ff="title">Sec-enterprise</div><div class="sub cap">企业安全指南</div></a></div></widget>
+
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">应用安全</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/secguide/#start"><span class="toc-text">关于本指南</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/secguide/roi"><span class="toc-text">安全成本</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/secguide/appsec"><span class="toc-text">应用安全</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E8%BF%B0"><span class="toc-text">简述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E5%88%86%E7%BA%A7"><span class="toc-text">业务系统分级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%AE%9A%E7%BA%A7"><span class="toc-text">漏洞定级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SDL"><span class="toc-text">SDL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SDL%E9%98%BB%E5%8A%9B%E5%92%8C%E5%85%8B%E6%9C%8D"><span class="toc-text">SDL阻力和克服</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDL%E5%89%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C"><span class="toc-text">SDL前置工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8B%E5%85%A5SDL%E6%B5%81%E7%A8%8B"><span class="toc-text">安全工程师介入SDL流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%B7%A5%E5%85%B7%E5%92%8C%E9%98%B2%E6%8A%A4%E4%BA%A7%E5%93%81%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">检测工具和防护产品的选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%A3%80%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="toc-text">安全检测工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E9%98%B2%E5%BE%A1%E5%B7%A5%E5%85%B7"><span class="toc-text">安全防御工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SAST%E4%BA%A7%E5%93%81%E7%9A%84%E7%9A%84%E8%B0%83%E7%A0%94"><span class="toc-text">SAST产品的的调研</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%BC%8F%E6%B4%9E"><span class="toc-text">安全测试中常见的漏洞</span></a></li></ol></div></div></widget>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/secguide/">Sec-enterprise</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-09-17T06:15:34.835Z">2023-09-17</time></div></div>
+
+  <article class='md-text content wiki'>
+  <h1 class="article-title"><span>应用安全</span></h1>
+  <h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>对于互联网企业而言，公司的营收主要看面向互联网用户的业务系统。所以在这些业务系统上应该投入足够的安全精力和成本。如果初创型公司有足够的资金，还没有找到业务方向处在试错阶段，那么可以先招一个懂安全测试的人。如果没有足够的资金，那么可以先把安全滞后，等业务起来再说。而对于中小型公司，业务方向确定，有持续稳定的营收，那么可以增加安全成本，包括招聘更专业的安全人员、购买商业安全检测工具、安全防护工具等。</p>
+<h2 id="业务系统分级"><a href="#业务系统分级" class="headerlink" title="业务系统分级"></a>业务系统分级</h2><p>由于互联网企业的营收收入主要来自核心的业务系统，所以企业应该对业务系统进行分级，越核心的系统投入的安全成本自然应该更多，安全控制措施或安全策略就应该更加严格。系统分级可以参考GB&#x2F;T22240-2020。</p>
+<p>信息系统的定级不应该是安全工程师来实施，安全人员要做的事是根据业内标准、指南，梳理出一份适合自身企业的定级指南，并对公司全体项目经理、产品经理进行宣贯。至于这个事情为什么非要项目进经理和产品经理去做，从根本上来说，项目经理和产品经理是最了解项目需求的，信息系统的目标定位、用户群体都是定级的指标。如果每个项目都要安全工程来定级，那一个公司那么多项目，安全工程师还不累死？</p>
+<p>每个公司情况不一样，业务系统定级可以做成功能集成到SDLC平台或者软件开发流程管理平台，实在不行也应该将定级结果写在项目文档中。</p>
+<p>系统定级可以从3个维度来量化：1.可用性；2.数据敏感型；3.受威胁等级</p>
+<p><strong>1.可用性</strong><br>系统可用性占比40%，简单的可以理解为RTO。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/keyongxing.png"></div></div>
+
+<p><strong>2.数据重要性</strong><br>简单的说就是评估业务系统中的数据敏感等级。产品经理进行数据重要性评估时需要重点考虑以下几个方面：</p>
+<ul>
+<li>业务系统中的数据等级是什么？一般将数据分为：机密、私有、敏感、公开</li>
+<li>数据泄漏对公司造成的影响或损失有多大？</li>
+</ul>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/shujuzhongyaoxing.png"></div></div>
+
+<p><strong>3.威胁程度</strong><br>主要的几个判断指标：是否互联网能访问，是否需要身份认证，是否与外部有数据交互</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/weixiechengdu.png"></div></div>
+
+<h2 id="漏洞定级"><a href="#漏洞定级" class="headerlink" title="漏洞定级"></a>漏洞定级</h2><p>漏洞的定级主要有3个指标：被利用难度、被利用后的影响程度、业务系统所处的环境（内网&#x2F;外网）。根据3个指标，将漏洞分为严重、高危、中危、低危4个级别。具体的指标内容这里不过多阐述，百度搜一下GB&#x2F;T30279-2020。这里引用了蚂蚁集团的漏洞评级标准</p>
+<details class="tag-plugin folding" color="red" child="codeblock" open><summary><span>严重</span></summary><div class="body"><ol><li>直接获取核心服务器权限漏洞，包括但不限于内存破坏、直接上传WEBSHELL、利用逻辑缺陷任意加载 远程代码 等可利用的远程代码执行漏洞。</li><li>核心敏感数据信息泄露漏洞，包括但不限于系统权限控制不严格等导致的敏感数据泄露漏洞。</li><li>核心业务的逻辑漏洞，能够大量获取利益造成公司、用户损失的漏洞，包括但不限于账密校验逻辑、核心数据接口验证逻辑、支付逻辑漏洞等。</li><li>可以直接命令执行的SQL注入漏洞；核心DB（资金、身份、交易相关）利用难度低的 SQL 注入，可获取大量核心用户的身份信息、订单信息、银行卡信息等接口问题引起的敏感信息泄露。</li></ol></div></details>
+
+
+<details class="tag-plugin folding" color="orange" child="codeblock" open><summary><span>高危</span></summary><div class="body"><ol><li>直接获取普通服务器或客户端权限漏洞，包括但 不限于内存破坏、逻辑权限等可利用的远程代码执行漏洞。</li><li>重要敏感数据信息泄露漏洞，包括但不限于重要用户信息、订单信息、数据文件信息等。</li><li>本地代码执行漏洞，包括但不限于内存破坏、类型混淆、整数问题等导致的可利用本地代码执行漏洞。</li><li>不需交互导致的重点业务漏洞，包括但不限于存储XSS、文 件遍历、参数处理不当导致的远程拒绝服务漏洞。</li><li>核心业务的逻辑漏洞，能够有限获取利益造成公司、用户损失的漏洞。</li><li>核心DB（资金、身份、交易相关）利用难度高的 SQL 注入，无法直接获取大量敏感数据。非核心DB（不包含用户身份、资金、交易相关，只有业务数据）利用难度低的SQL注入，可以获取大量业务数据的漏洞。</li></ol></div></details>
+
+<details class="tag-plugin folding" color="yellow" child="codeblock" open><summary><span>中危</span></summary><div class="body"><ol><li>需交互才能对用户产生危害的安全漏洞、包括但不限于反射XSS、json劫持、CRLF、敏感操作的CSRF等。</li><li>普通信息 泄露漏洞、包括但不限于非个人登陆后泄露的手机号、姓名、交易号等个人信息。</li><li>远程拒绝服务漏洞，包括但不限于攻击接口、页面、组件导致的拒绝服务等。</li><li>非核心业务的逻辑漏洞，包括但不限于组件导出、权限控 制不当导致的 泄露问题、重定向漏洞等。</li><li>存储xss不能影响全量用户或不能提供输入点的或独立域名有httponly防护的应用</li><li>一般风险的业务安全问题。如营销活动作弊、业务规则绕过</li><li>非核心DB（不包含用户身份、资金、交易相关，只有业务数据）利用难度高的SQL注入，不可直接获取大量业务数据。</li></ol></div></details>
+
+<details class="tag-plugin folding" color="green" child="codeblock" open><summary><span>低危</span></summary><div class="body"><p>在特殊条件下才能获取用户信息的安全漏洞，包括但不限于特定浏览器下 的反射XSS、存储XSS。 基本无影响的信息泄露漏洞，包括但不限于服务器物理路径、phpinfo、边缘系统文件、本地日志等。 本地拒绝服务漏洞，包括但不限于PC端、 移动端本地组件、进程的拒绝服务。 可能存在安全隐患但利用成本很高的漏洞，包括但不限于特殊情况下 的中间人攻击、需要用户连续交互的敏感操作安全漏洞。 低风险业务安全问题。如恶意注册、违规违禁、商户欺诈，套现等 越权低危情况：A、攻击门槛较高 B、无敏感信息 C、用户无感知，非重要功能</p></div></details>
+
+<h2 id="SDL"><a href="#SDL" class="headerlink" title="SDL"></a>SDL</h2><p>微软SDL流程将软件开发周期分为7个阶段。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/SDL.png"></div></div>
+
+<p>将SDL流程从0-1落地是非常艰难的一件事，重点还是在于除安全人员之外，公司其它人员不够重视SDL，甚至不知道SDL。所以在开始SDL建设的时候，第一步应该编写好SDL标准，标准不涉及具体的技术细节，只是要让公司业务侧人员知道软件开发的各个阶段都应该进行安全活动，而并非总是完成开发后找到安全工程师进行安全测试。而要业务侧人员都参与到SDL活动中来，这离不开积极的宣贯、高层的支持。</p>
+<h3 id="SDL阻力和克服"><a href="#SDL阻力和克服" class="headerlink" title="SDL阻力和克服"></a>SDL阻力和克服</h3><p>说实话，从我个人经历来讲，sdl最大的阻力还是在于高层不够重视，所以在进行宣贯的时候业务侧有些人不积极配合，或者随意应付，并没有把这个事情放在心上。</p>
+<p>sdl流程的落地应该让高层重视起来，在中小型互联网企业至少应该得到CTO这一层的大力支持。如果CTO无法支持，那么开展SDL会非常的困难，毕竟安全团队和业务团队没有利益往来，相反业务团队参与SDL可能会影响到自身的利益，最常见的就是业务侧参与安全活动导致业务无法在预定的时间上线。</p>
+<p>如何克服SDL落地的阻力？</p>
+<ul>
+<li>治标：积极主动的去和业务团队沟通，和业务团队老大打好关系（软技能），偶尔请人家团队吃个饭，有事没事找人家唠唠嗑无意中灌输安全非常重要的思想。</li>
+<li>治本：得到技术负责人（CTO）的大力支持，建立信息安全委员会，制定相对应的奖惩制度；如何得到技术负责人的大力支持，这又是一个棘手的问题。有些技术负责人是懂安全的，或者经历过比较严重的安全事件的，如果遇到这样的技术负责人那会简单很多。但是如果技术负责人不懂安全，没有经历过严重的安全事件，要得到他的支持也有一些难度。技术负责人比我们安全人员考虑的要多，需要从人力成本、时间成本、投入资金等方面综合性的考量，不是说支持就支持的。这种情况下，安全负责人就应该把《网络安全法》、《数据安全法》、其它企业遭受到攻击产生的损失的案例、安全问题滞后发现所增加的修复成本等搬出来震慑一下，这样CTO多多少少会给予一些支持。如果CTO油盐不进，那我就奇怪了，他招聘安全工程师来是想干嘛？</li>
+</ul>
+<h3 id="SDL前置工作"><a href="#SDL前置工作" class="headerlink" title="SDL前置工作"></a>SDL前置工作</h3><p>上面说了SDL落地的阻力和克服方法，但如果只是写一个标准化文档来宣贯还是无法讲SDL流程run起来的。在将SDL标准进行宣贯之前就应该开始做一些前置事情。在宣贯之后，能让SDL流程跑通。</p>
+<ul>
+<li>编写各个阶段需要的指南和规范：安全需求清单、软件设计安全规范、业务系统定级指南、安全编码规范、安全自测工具使用说明、应急响应指南等</li>
+<li>开发或采购SDLC平台，平台应该具备以下功能：新建项目&#x2F;系统，对系统进行定级，安全提测和排期，展示SDLC流程中安全检测工具发现的漏洞并可以对漏洞状态进行修改（漏洞管理）</li>
+<li>建立起安全检测能力（devsecops）：sast、iast、sca、cast、dast</li>
+</ul>
+<h3 id="安全工程师介入SDL流程"><a href="#安全工程师介入SDL流程" class="headerlink" title="安全工程师介入SDL流程"></a>安全工程师介入SDL流程</h3><div class="tag-plugin note" color="red" child="codeblock"><div class="body"><p>安全是很特殊的团队，为业务提供保障，但不代表所有安全相关责任都落在安全人员头上。很多事情其实是安全部门和其它团队协作来发现风险、缓解风险。</p></div></div>
+<p>应用安全工程师应该做如下事情：</p>
+<ol>
+<li>对需求进行风险评估，根据《网络安全法》、《数据安全法》、《个人隐私保护》等方面提出安全需求；</li>
+<li>对软件设计进行威胁建模，对软件架构师进行访谈，发现软件设计中存在的安全缺陷，并给出安全建议；</li>
+<li>静态代码扫描（sast）、软件供应链分析扫描（sca），容器安全检测（cast）。其实这个事情应该是开发人员进行自测，安全人员只需要指导开发人员怎么进行自测就行，培养起开发人员自测的习惯。</li>
+<li>安全测试，如果研发人员已经做过sast、sca了，那安全工程师只需要进行黑盒测试。这是项目正式上线前最后一道安全检测关卡，一是验证1和2中提出的安全需求和建议有没有得到有效实施，二是挖掘3中工具无法检测出的安全问题，比如条件竞争漏洞、登陆逻辑缺陷、权限控制不当等特定场景的逻辑漏洞。</li>
+<li>系统正式上线后，要验证一下是否配置WAF，业务系统的服务器是否安装了hdis</li>
+<li>如果发现业务系统中断、或者hids监测到服务器被入侵，安全工程师需要马上进行安全事件应急响应。（这个其实应该是安全运营人员要做的，但在1、2阶段的初创企业，SDL工程师也应该具备简单的应急响应能力）</li>
+</ol>
+<h2 id="检测工具和防护产品的选择"><a href="#检测工具和防护产品的选择" class="headerlink" title="检测工具和防护产品的选择"></a>检测工具和防护产品的选择</h2><p>业务系统的安全检测是SDL流程中大多数安全人员觉得比较关键一环，虽然业内一直提倡软件开发的安全左移，但检测工作是无法左移的（需求分析和软件设计阶段无法进行安全检测）。<br>检测工具和防护产品如何选择，关键还是在于CTO的支持。与其说CTO的支持，还不如说看老板的脸色。与其说看老板的脸色还不如看公司的效益或者是公司是否有足够的资金投入在信息安全建设上。</p>
+<ol>
+<li>初创型企业，资金有限，应该使用开源检测工具和防护产品，尽量的降低成本；</li>
+<li>中小型创业型企业，拿到融资，有足够的资金，应该使用开源检测工具和防护产品，但应该增加1-2个岗位对开源工具进行二次开发；也可以选择采购商用产品；</li>
+<li>中大型互联网企业或上市公司，直接采购商业产品是性价比较高的选择。</li>
+<li>互联网大厂财大气粗，招人从0-1进行自研。</li>
+</ol>
+<h2 id="安全检测工具"><a href="#安全检测工具" class="headerlink" title="安全检测工具"></a>安全检测工具</h2><ul>
+<li>开源&#x2F;免费检测工具：sast(sonar+findbugs、semgrep、cobra)、sca（owasp denpendencycheck）、iast（openrasp-iast、洞态）</li>
+<li>商业检测工具：sast（checkmarx、fotify、coverity），sca（sourcecheck、MoreSec SCA、CxSCA、opensca）、iast（悬镜、默安雳鉴、孝道科技）</li>
+</ul>
+<h2 id="安全防御工具"><a href="#安全防御工具" class="headerlink" title="安全防御工具"></a>安全防御工具</h2><ul>
+<li>开源防御产品：waf（ModSecurity）、rasp（openrasp）</li>
+<li>商业防御产品：waf（云厂商waf）、rasp（悬镜、开源网安、灵蜥rasp）</li>
+</ul>
+<h2 id="SAST产品的的调研"><a href="#SAST产品的的调研" class="headerlink" title="SAST产品的的调研"></a>SAST产品的的调研</h2><p>选择SAST需要从误报率、漏报率、扫描速度、是否支持公司的主要语言栈、是否支持公司的CI&#x2F;CD平台、价格几个方面考虑。其它安全检测工具同理。</p>
+<p>在我的工作经验中，接触过coverity、sonarqube、semgrep、codeql、cobra，其它没接触过的sast产品不好妄下定论。 对于不想在应用安全上投入太多成本的公司，sonarqube、semgrep、codeql、cobra可以免费使用</p>
+<ol>
+<li>semgrep是开源项目可以进行二次开发</li>
+<li>sonarqube更偏重质量检测，安全扫描需要配合SpotBugs和dependecycheck插件</li>
+<li>codeql虽然可以免费使用但不能用作商业项目，不过部署在内网不出网，codeql公司是无法检测到我们使用的。</li>
+<li>cobra和semgrep一样也是开源项目，支持二次开发。</li>
+</ol>
+<p><code>我个人推荐codeql</code>：<a target="_blank" rel="noopener" href="https://codeql.github.com/">https://codeql.github.com/</a></p>
+<h2 id="安全测试中常见的漏洞"><a href="#安全测试中常见的漏洞" class="headerlink" title="安全测试中常见的漏洞"></a>安全测试中常见的漏洞</h2><p>应用安全中比较常见的岗位就是安全测试岗，而安全测试的目的则是挖掘业务系统中的漏洞。这里不讲渗透测试，只讲 业务系统层面的漏洞，利用信息系统漏洞只是渗透的一个攻击面而已。</p>
+<p>系统漏洞归为3类：导致系统不可用、导致数据泄漏、导致用户或公司资金损失</p>
+<p>业内比较有名的漏洞分类是owasp top10，首先先来看下2021版的owasp top10</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/owasptop10-2021.png" alt="owasp-top-10"></div><div class="image-meta"><span class="image-caption center">owasp-top-10</span></div></div>
+
+<p>owasp top10漏洞每4年会更新一次，这是owasp组织通过大量调研得出的漏洞排名，几乎是代表了安全行业。</p>
+<details class="tag-plugin folding" color="red" child="codeblock" open><summary><span>1.失效的访问控制</span></summary><div class="body"><p>失效的访问控制从第5名直接上升到第1，可见这个漏洞已经成为了信息系统的安全共性问题。各种各样的越权漏洞，层出不穷。比如查看修改别人的订单，查看别人的隐私照片等等。曾经我看到hackerone上有人提了一个ins的漏洞，用户将自己的照片设置为隐私仅自己可见，但黑客可以通过修改用户ID的方式查看到别人的隐私照片。这类漏洞这几年成为了主流，我在甲方这几年挖掘到的漏洞，越权漏洞几乎占了一半。现有的访问控制模型很难满足现代化的、复杂的业务系统，很多数据的查询接口或者修改接口都是case by case的，所以权限控制也得case by case去做。我遇到过一个项目，项目分为小程序端和运营后台端，使用了基于角色的权限控制模型。运营后台用户可以访问小程序端用户的数据，严格意义上来说，这也不是很安全，从数据安全角度来说，运营后台的用户也应该进行精细化权限划分。更离谱的是，小程序用户的token可以访问运营后台接口获取大量用户数据。小程序用户之间的私人数据也没做权限控制，任意一个小程序用户都可以看到其它小程序用户的敏感信息。</p></div></details>
+
+<details class="tag-plugin folding" color="orange" child="codeblock" open><summary><span>2.加密机制失效</span></summary><div class="body"><p>这个漏洞之前叫敏感信息泄漏，现在更名为加密机制失效我觉得也是合情合理，敏感信息本就应该做加密的。在SDL的需求阶段就应该定义好，哪些数据是敏感数据，定义好加密技术方案，比如password经过hash存入数据库，比如用户手机号、地址、身份证应该加密入库，后端接口从数据库里取到加密的数据后前端进行解密。不过如果前端没有做好代码混淆，密钥很容易被攻击者拿到，这也是一个风险。</p></div></details>
+
+<details class="tag-plugin folding" color="yellow" child="codeblock" open><summary><span>3.注入</span></summary><div class="body"><p>注入漏洞一直以来霸榜第一，但2021年下降到第三名。注入类漏洞以SQL注入为代表，当然也有xpath注入、XSS注入。为什么注入漏洞的排名会下降到第三，我觉得有2个原因。</p><ul><li>开发者的安全意识提升了。很多开发者已经不再使用查询语句和参数进行拼接的写法，更多的使用占位符？来预编译查询，PreparedStatement几乎已经替代了Statement。</li><li>更多的开发者使用数据持久层框架来替代原生SQL语句查询。<br>这几年在甲方做应用安全，有时候会去看公司代码仓库，发现几乎所有的业务系统都使用了mybaits，这是一个很好的趋势。</li></ul></div></details>
+
+<details class="tag-plugin folding" color="green" child="codeblock" open><summary><span>4.不安全设计</span></summary><div class="body"><p>2021年版的一个新类别，其重点关注与设计缺陷相关的风险。如果我们真的想让整个行业“安全左移” ，我们需要更多的威胁建模、安全设计模式和原则以及参考架构。不安全设计是无法通过完美的编码来修复的；因为根据定义，所需的安全控制从来没有被创建出来以抵御特定的安全攻击。</p><p>不安全设计不是一个特定漏洞，而是众多逻辑类漏洞的集合。</p></div></details>
+
+<details class="tag-plugin folding" color="cyan" child="codeblock" open><summary><span>5.不安全的配置</span></summary><div class="body"><p>从上一版本的第六名提升，随着当今软件正转向高度可配置，看到这一类别上升也不足为奇。该类存在以下风险：</p><ol><li>应用程序栈的任何部分都可能缺少适当的安全加固，或者云服务的权限配置错误。</li><li>默认账户和密码仍然可用且没做更改。</li><li>应用程序启用或安装了不必要的功能（例如：不必要的端口、服务、网页、帐户或权限）</li><li>错误处理机制向用户纰漏堆栈信息或其他大量错误信息。</li><li>对于升级的系统，最新的安全特性被禁用或未安全配置。</li><li>应用程序服务器、应用程序框架（如：Struts、Spring、ASP.NET）、库文件、数据库等没有进行安全配置。</li></ol></div></details>
+
+<details class="tag-plugin folding" color="blue" child="codeblock" open><summary><span>6.引用有缺陷和过时的第三方组件</span></summary><div class="body"><p>它在Top 10社区调查中排名第二，也有足够的数据让它进入前十。这在软件开发中其实可以理解为软件供应链安全问题。不论软件是基于java、php还是其它语言，调用别人写好的包可以大大的减少开发成本。该类漏洞排名第6我觉得偏低了，现代化的开发模式，开发者会引用大量的第三方组件，比如fastjson、log4j2、struts2等，这些第三方组件都曾经爆出过核弹级别漏洞。正是因为开发中避免不了引用第三方组件，所以这个问题在我这里是非常严重的。sdlc中也有专门针对该类漏洞的检测工具：SCA，开源的有owasp denpendencycheck，这个还是比较好用的，能检测到二级依赖，但因为检测原理是去匹配CVE库，而CVE库在国内访问速度相当的慢，甚至在扫描中会出现网络中断的情况，不过可以先将cve库下载到本地来，然后进行本地匹配，但同步cve库是一个麻烦事。国内也有很多安全厂商提供了SCA产品，比如开源网安、默安、奇安信等都提供了SCA产品。</p></div></details>
+
+<details class="tag-plugin folding" color="purple" child="codeblock" open><summary><span>7.身份识别和身份验证错误</span></summary><div class="body"><p>之前被称之为“无效的身份认证”，此类别从第二名下滑。比如最常见的暴力破解就是属于该类漏洞。该类漏洞的风险如下：</p><ol><li>暴力破解攻击</li><li>弱密码（在用户注册的时候未强制校验密码强度）</li><li>使用脆弱或无效的认证资讯回复或忘记密码的流程，如不安全的”知识相关问答”。</li><li>使用明码、被加密的或使用较脆弱杂凑法的密码</li><li>重要、关键系统未做双多素认证功能</li><li>URL中携带session可能会泄漏用户会话，我曾经在某个业务系统利用host头欺骗漏洞来获取url中的session。</li><li>成功登入后没有轮换会话(session) ID</li><li>用户凭证中携带了用户关键信息，或者生成凭证的函数存在缺陷（jjwt爆出过相关漏洞）</li></ol></div></details>
+
+<details class="tag-plugin folding" color="light" child="codeblock" open><summary><span>8.软件和数据完整性故障</span></summary><div class="body"><p>这是2021年版本的一个新类别，聚焦于在未验证完整性的情况下做出与软件更新、关键数据更改相关的操作。最常见的漏洞之一是拦截订单提交请求并修改订单数据，比如修改购买商品数，这样可能就存在支付一份商品的钱买到10份甚至100份商品。还有另外的攻击场景，比如在开发过程中引用了非官方源，而非官方源中有部分组件包含了恶意代码，导致被RCE，所以很多组件都会在官方列出组件对应的散列值。还有一个攻击场景就是反序列化攻击，对象或数据被编码或序列化为攻击者可以看到和修改的结构，很容易受到不安全的反序列化的影响。</p><p>关于完整性漏洞相关的漏洞，主要通过数字签名来防御。</p></div></details>
+
+<details class="tag-plugin folding" color="dark" child="codeblock" open><summary><span>9.安全日志和监控故障</span></summary><div class="body"><p>该类并不属于漏洞，但如果不进行日志记录和监测，就无法发现违规行为。任何时候都会发生日志记录、检测、监视和主动响应不足的情况:</p><ol><li>需要审计的事件，例如：登录、失败的登录和高价值交易，但未记录。</li><li>应用程序和 API的日志未进行安全可疑活动的监控。</li><li>警告和错误未生成日志或日志记录不充分导致发生故障无法排查。</li><li>渗透测试和动态应用安全测试（DAST）工具（例如：OWASP ZAP）的扫描没有触发警报</li></ol></div></details>
+
+<details class="tag-plugin folding" color="warning" child="codeblock" open><summary><span>10.服务端请求伪造</span></summary><div class="body"><p>该类漏洞是2021年版本新增类别。一旦Web应用在获取远程资源时没有验证用户提供的URL，就会出现SSRF缺陷。它允许攻击者强制应用程序发送一个精心构建的请求到一个意外目的地，即使是在有防火墙、VPN或其他类型的网络访问控制列表（ACL）保护的情况下。随着现代Web应用为终端用户提供便利的功能，获取URL成为一种常见的场景。因此，SSRF安全攻击事件也在不断增加。此外，由于云服务和架构的复杂性，SSRF的严重性也越来越高。java中导致SSRF的危险函数主要有：httpurlconnection,httpclient,request,okhttp,urlconnection,url</p></div></details>
+
+
+
+  
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/secguide/roi">安全成本</a></div><div class="item" id="next"></div></section></div>
+
+  
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

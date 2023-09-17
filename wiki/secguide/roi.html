@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Sec-enterprise：安全成本 - minzhi</title>
+
+  
+    <meta name="description" content="聊一聊安全成本我想很多企业都会面临这个问题，安全投入成本到底应该是多少？如何度量在安全上投入的成本和回报(ROI)？企业安全是不是发现漏洞然后修复漏洞，再设置一下防火墙之类的工作？ 圈内有很多人调侃，不出安全事故老板不知道你的价值，出了安全事故老板又觉得招你没有价值。所以怎么量化安全工作的价值，是安全Leader需要考虑的事。笔者认为安全ROI本质上来说是（安全风险所造成的损失-安全成本），如果结">
+<meta property="og:type" content="website">
+<meta property="og:title" content="安全成本">
+<meta property="og:url" content="http://example.com/wiki/secguide/roi">
+<meta property="og:site_name" content="minzhi">
+<meta property="og:description" content="聊一聊安全成本我想很多企业都会面临这个问题，安全投入成本到底应该是多少？如何度量在安全上投入的成本和回报(ROI)？企业安全是不是发现漏洞然后修复漏洞，再设置一下防火墙之类的工作？ 圈内有很多人调侃，不出安全事故老板不知道你的价值，出了安全事故老板又觉得招你没有价值。所以怎么量化安全工作的价值，是安全Leader需要考虑的事。笔者认为安全ROI本质上来说是（安全风险所造成的损失-安全成本），如果结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/fengxianpinggu.png">
+<meta property="article:published_time" content="2023-09-17T05:40:52.820Z">
+<meta property="article:modified_time" content="2023-09-17T05:40:52.820Z">
+<meta property="article:author" content="minzhizhou">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/fengxianpinggu.png">
+<meta name="twitter:creator" content="@minzhizhou1215">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+  
+
+
+
+
+<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/wiki/secguide/"><div class="main" ff="title">Sec-enterprise</div><div class="sub cap">企业安全指南</div></a></div></widget>
+
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">安全成本</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/secguide/#start"><span class="toc-text">关于本指南</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/secguide/roi"><span class="toc-text">安全成本</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%8A%E4%B8%80%E8%81%8A%E5%AE%89%E5%85%A8%E6%88%90%E6%9C%AC"><span class="toc-text">聊一聊安全成本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E4%B8%9A%E5%8A%A1%E8%A7%84%E6%A8%A1%E8%80%83%E9%87%8F%E5%AE%89%E5%85%A8%E6%88%90%E6%9C%AC"><span class="toc-text">通过业务规模考量安全成本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E9%A3%8E%E9%99%A9%E8%AF%84%E4%BC%B0%E8%BF%9B%E8%A1%8C%E5%AE%89%E5%85%A8%E6%88%90%E6%9C%AC%E4%BC%B0%E7%AE%97"><span class="toc-text">通过风险评估进行安全成本估算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%88%90%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="toc-text">安全成本计算公式</span></a></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/secguide/appsec"><span class="toc-text">应用安全</span></a></div></div></widget>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/secguide/">Sec-enterprise</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-09-17T05:40:52.820Z">2023-09-17</time></div></div>
+
+  <article class='md-text content wiki'>
+  <h1 class="article-title"><span>安全成本</span></h1>
+  <h2 id="聊一聊安全成本"><a href="#聊一聊安全成本" class="headerlink" title="聊一聊安全成本"></a>聊一聊安全成本</h2><p>我想很多企业都会面临这个问题，安全投入成本到底应该是多少？如何度量在安全上投入的成本和回报(ROI)？企业安全是不是发现漏洞然后修复漏洞，再设置一下防火墙之类的工作？</p>
+<p>圈内有很多人调侃，不出安全事故老板不知道你的价值，出了安全事故老板又觉得招你没有价值。所以怎么量化安全工作的价值，是安全Leader需要考虑的事。笔者认为安全ROI本质上来说是（安全风险所造成的损失-安全成本），如果结果是正值则是安全投入是成功的，如果是负值则安全投入是失败的。但安全风险造成的损失很难定量计算，所以安全ROI难以度量是业内的通病。经过我的思考，总结出两个维度的安全成本的评估方法：<code>1、业务规模；2、当前风险</code>。两种方法都存在一些弊端，结合使用可能效果会更好。</p>
+<h2 id="通过业务规模考量安全成本"><a href="#通过业务规模考量安全成本" class="headerlink" title="通过业务规模考量安全成本"></a>通过业务规模考量安全成本</h2><p>该方法优势：简单粗暴，只需要根据业务规模来估算成本</p>
+<p>该方法劣势：没有具体的依据，无法计算出安全成本具体的值，只能根据公司的资金情况而定。比如处在2阶段的企业需要招聘2个人，而这两个岗位如何定薪资，有了人之后又需要在检测能力和防御能力以及应急响应能力上投入，无法进行人员成本和检测工具、防御产品之间的分配。</p>
+<p>以下将业务规模分为4个阶段：</p>
+<ol>
+<li><p>处于业务摸索阶段的初创型企业，即使有资本注入，但这个阶段的企业不应该把成本过于浪费在安全上。安全是基于业务的，如果连业务方向都不明确，谈何安全。这种情况下可以无需在安全上投入成本，等找到业务方向后在开始组建安全团队。</p>
+</li>
+<li><p>已经有明确的业务方向的创业企业，如果没有资本注入且营收情况不佳，应该至少需要一个安全工程师，这个工程师无需精通安全某个细分领域，但需要具备安全体系的大局观，需要具备企业安全风险评估风险的能力并给出风险处置方案或者建议。如果说资金充裕（业务盈利或者有融资），应该招聘至少一个安全合规，一个安全技术。这类公司一般公司规模100-500人，安全人员至少需要2个，安全团队在企业组织架构中应该是和运维平级的团队。遇到过很多企业将安全置于运维团队下管理，这绝对是无法顺利开展安全工作的。</p>
+</li>
+<li><p>如果是融资型企业（大多互联网公司都会融资），并且已经到C轮之后了（独角兽企业），那么公司的业务肯定已经很明确了，比如xx社交软件、xx新媒体平台、xx线上问诊等等。这类公司大多都奔着上市去，那么要上市必然会受到更多的监管和黑客的攻击，不管业务盈利情况怎么样，企业高层都应该把安全重视起来。至少要组建一个初具规模安全团队（5-10人），1个负责人，1个应用安全，1个安全合规，1个数据安全，1个安全运维&#x2F;应急）。</p>
+</li>
+<li><p>如果企业已经上市，或者用户庞大（千万用户以上），比如蚂蚁虽然没上市，但是用户量巨大，盈利非常可观。这种超越了独角兽的企业，应该投入更多的安全成本。至少安全团队（20人以上）：1个安全负责人，2～4个应用安全，2-3个安全合规，1-2个数据安全，2-4个安全运维&#x2F;应急。</p>
+</li>
+</ol>
+<h2 id="通过风险评估进行安全成本估算"><a href="#通过风险评估进行安全成本估算" class="headerlink" title="通过风险评估进行安全成本估算"></a>通过风险评估进行安全成本估算</h2><p>该方法优势：能通过风险估算可能造成的损失，然后根据可能这些损失来计算安全投入。如果说通过业务规模是定性分析，那么该方法就是定量分析，依托风险损失计算公式的值进行对应的安全投入，有所依据，对老板而言更有说服力。</p>
+<p>劣势：定量风险评估公式中的暴露因子EF和年度威胁发生率没有明确数据参考，需要做大量的调研才能估算出这2个值。</p>
+<p>度量安全ROI的第一步是进行风险评估，业内有很多风险评估指南，但步骤大致都相同</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/fengxianpinggu.png"></div></div>
+
+<h2 id="安全成本计算公式"><a href="#安全成本计算公式" class="headerlink" title="安全成本计算公式"></a>安全成本计算公式</h2><div class="tag-plugin note" color="red" child="codeblock"><div class="body"><p>SLE&#x3D;Asset value * EF（单次风险造成的损失）<br>ALE&#x3D;SLE * ARO（一年总风险造成的损失）<br>AROI&#x3D;invest-ALE（一年投资回报值）</p></div></div>
+
+<p>定量计算安全成本的难点在于EF需要安全专家进行主动性判断。</p>
+<div class="tag-plugin note" color="red" child="codeblock"><div class="body"><p>这里我举个例子来说明下大概如何定义EF值，比如现在很流行的越权问题，假如某接口存在敏感信息且存在越权。这里有2种情况，一种是数据ID可自增可遍历，那么EF就是1，因为攻击者可以通过遍历获取所有id的敏感数据。如果ID是无法遍历的随机数，那么EF就可以定在0.1-0.5之间。</p></div></div>
+
+<p>而关于资产的定级和估值，安全工程师需要找业务方去沟通，虽然现在等保对大部分业务系统都定为三级，但其实有很大的差异。有些三级系统可能用户量只有几万人，有些则有上百万人。只有和业务方沟通，才能更准确的对业务系统的价值进行评估。</p>
+<p>比如拥有50万-100万用户的业务系统估值100万，超过100万用户的业务系统估值500万。当然用户数量并不是唯一参数，业务系统的属性是很重要的参考指标，比如 <u>变现能力很强的业务</u> 估值可以（用户数量 * 2），而 <u>变现能力稍微差点</u> 的业务则（用户数 * 0.5）。</p>
+<p>每年的安全投入成本则是上面公式中的ARO * 0.3 ~ ARO * 0.7比较合理。</p>
+<table>
+<thead>
+<tr>
+<th>资产分类</th>
+<th>资产</th>
+<th>资产估值</th>
+<th>威胁</th>
+<th>单一损失期望</th>
+<th>年度发生率</th>
+<th>年度损失期望值</th>
+<th>总和</th>
+<th>安全成本预算</th>
+<th>安全成本投入点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>业务系统</td>
+<td>xx业务系统</td>
+<td>1000000</td>
+<td>数据泄漏</td>
+<td>1000000</td>
+<td>0.15</td>
+<td>150000</td>
+<td>177000</td>
+<td>88500</td>
+<td>业务系统检测产品、防御产品、软件安全工程师</td>
+</tr>
+<tr>
+<td></td>
+<td>xx内部运营平台</td>
+<td>500000</td>
+<td>业务中断</td>
+<td>200000</td>
+<td>0.01</td>
+<td>2000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>xxx业务系统2</td>
+<td>200000</td>
+<td>直接资损</td>
+<td>500000</td>
+<td>0.05</td>
+<td>25000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>涉密文件</td>
+<td>机密文件1</td>
+<td>500000</td>
+<td>数据泄漏</td>
+<td>500000</td>
+<td>0.5</td>
+<td>250000</td>
+<td>800000</td>
+<td>400000</td>
+<td>数据防泄漏、数据安全治理</td>
+</tr>
+<tr>
+<td></td>
+<td>机密文件2</td>
+<td>100000</td>
+<td>数据泄漏</td>
+<td>100000</td>
+<td>0.5</td>
+<td>50000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>核心业务源代码</td>
+<td>1000000</td>
+<td>数据泄漏</td>
+<td>1000000</td>
+<td>0.5</td>
+<td>500000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+  
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/secguide/">关于本指南</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/secguide/appsec">应用安全</a></div></section></div>
+
+  
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
