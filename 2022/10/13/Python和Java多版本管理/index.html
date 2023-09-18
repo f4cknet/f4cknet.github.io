@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Python和Java多版本管理 - minzhi</title>
+
+  
+    <meta name="description" content="使用Pyenv管理Python版本  pyenv安装 安装Homebrew 1&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;master&#x2F;install.sh) 安装pyenv 123brew install pyenv上面只安装了pyenv，但有时候不同项目需要自己的虚拟环境，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python和Java多版本管理">
+<meta property="og:url" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">
+<meta property="og:site_name" content="minzhi">
+<meta property="og:description" content="使用Pyenv管理Python版本  pyenv安装 安装Homebrew 1&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;master&#x2F;install.sh) 安装pyenv 123brew install pyenv上面只安装了pyenv，但有时候不同项目需要自己的虚拟环境，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/ip.png">
+<meta property="og:image" content="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv1.gif">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv2.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/penv3.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv4.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv5.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv6.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv7.png">
+<meta property="og:image" content="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">
+<meta property="og:image" content="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jenv.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jdk17.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/java17-8.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jdk_path_mac.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jenv_add.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/changejdk.png">
+<meta property="og:image" content="http://example.com/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/mvnable.png">
+<meta property="article:published_time" content="2022-10-13T15:01:47.000Z">
+<meta property="article:modified_time" content="2023-09-17T08:47:12.000Z">
+<meta property="article:author" content="minzhizhou">
+<meta property="article:tag" content="开发环境">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">
+<meta name="twitter:creator" content="@minzhizhou1215">
+  
+  
+  
+  <meta name="keywords" content="开发环境,java,python">
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">minzhi</div><div class="sub normal cap">信息安全个人博客</div><div class="sub hover cap" style="opacity:0"> cyber security personal blog</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/study/">学习资源</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Python和Java多版本管理</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Pyenv%E7%AE%A1%E7%90%86Python%E7%89%88%E6%9C%AC"><span class="toc-text">使用Pyenv管理Python版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pyenv%E5%AE%89%E8%A3%85"><span class="toc-text">pyenv安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pyenv%E4%BD%BF%E7%94%A8"><span class="toc-text">pyenv使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%88%97%E5%87%BA%E5%8F%AF%E5%AE%89%E8%A3%85%E7%9A%84Python%E7%89%88%E6%9C%AC"><span class="toc-text">1、列出可安装的Python版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E6%8C%87%E5%AE%9APython%E7%89%88%E6%9C%AC"><span class="toc-text">2、安装指定Python版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85Python%E7%89%88%E6%9C%AC"><span class="toc-text">3、查看已安装Python版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E5%88%87%E6%8D%A2python%E7%89%88%E6%9C%AC"><span class="toc-text">4、切换python版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-text">5、管理虚拟环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E5%88%87%E6%8D%A2%E5%88%B0%E5%85%B6%E4%BB%96%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-text">6、切换到其他虚拟环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7%E3%80%81%E9%80%80%E5%87%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-text">7、退出虚拟环境</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Jenv%E7%AE%A1%E7%90%86jdk"><span class="toc-text">使用Jenv管理jdk</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jenv%E5%AE%89%E8%A3%85"><span class="toc-text">jenv安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jenv%E4%BD%BF%E7%94%A8"><span class="toc-text">jenv使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85%E4%B8%8D%E5%90%8CJDK"><span class="toc-text">1、安装不同JDK</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%B0%86%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%ACJDK%E5%8A%A0%E5%85%A5jenv%E4%B8%AD%E7%AE%A1%E7%90%86"><span class="toc-text">2、将不同版本JDK加入jenv中管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%88%87%E6%8D%A2jdk%E7%89%88%E6%9C%AC"><span class="toc-text">3、切换jdk版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%94%AF%E6%8C%81mvn"><span class="toc-text">4、支持mvn</span></a></li></ol></li></ol></li></ol></div></div></widget>
+
+<widget class="widget-wrapper markdown"><div class="widget-header cap theme dis-select"><span class="name">公众号</span></div><div class="widget-body fs14"><p>分享信息安全相关原创内容 <br> <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/qrcode_for_gh_6cfc8061eede_258.jpg"></p>
+</div></widget>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">开发环境管理</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-10-13T15:01:47.000Z">2022-10-13</time></div></div>
+
+<article class='md-text content post'>
+<h1 class="article-title"><span>Python和Java多版本管理</span></h1>
+<div class="tag-plugin quot"><h2 class="content" id="使用Pyenv管理Python版本" type="text"><a href="#使用Pyenv管理Python版本" class="headerlink" title="使用Pyenv管理Python版本"></a>使用Pyenv管理Python版本</h2></div>
+
+<div class="tag-plugin quot"><h3 class="content" id="pyenv安装" type="icon"><a href="#pyenv安装" class="headerlink" title="pyenv安装"></a><img class="icon prefix lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">pyenv安装</h3></div>
+<p>安装Homebrew</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)</span><br></pre></td></tr></table></figure>
+<p>安装pyenv</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install pyenv</span><br><span class="line">上面只安装了pyenv，但有时候不同项目需要自己的虚拟环境，所以还需要安装virtualenv-init</span><br><span class="line">brew install --HEAD pyenv-virtualenv</span><br></pre></td></tr></table></figure>
+
+<p>需要注意一下，上面会去拉github下载资源，可能会报错<br><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443 after 23 ms: Couldn&#39;t connect to server</code><br>所以设置一下终端代理。我平时用的clashx，翻墙代理127.0.0.1:7890</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/ip.png"></div></div>
+
+<p>添加到环境变量. vim ~&#x2F;.zshrc</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export PYENV_ROOR=&quot;$HOME/.pyenv&quot;</span><br><span class="line">export PATH=$PYENV_ROOT/shims:$PATH</span><br><span class="line">eval &quot;$(pyenv init -)&quot;</span><br><span class="line">eval &quot;$(pyenv virtualenv-init -)&quot;</span><br><span class="line"></span><br><span class="line">执行source ~/.zshrc更新环境变量</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin quot"><h3 class="content" id="pyenv使用" type="icon"><a href="#pyenv使用" class="headerlink" title="pyenv使用"></a><img class="icon prefix lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">pyenv使用</h3></div>
+<h4 id="1、列出可安装的Python版本"><a href="#1、列出可安装的Python版本" class="headerlink" title="1、列出可安装的Python版本"></a>1、列出可安装的Python版本</h4><p>pyenv install -l</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv1.gif"></div></div>
+
+<h4 id="2、安装指定Python版本"><a href="#2、安装指定Python版本" class="headerlink" title="2、安装指定Python版本"></a>2、安装指定Python版本</h4><p>pyenv install [version]</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv2.png"></div></div>
+
+<h4 id="3、查看已安装Python版本"><a href="#3、查看已安装Python版本" class="headerlink" title="3、查看已安装Python版本"></a>3、查看已安装Python版本</h4><p>pyenv versions，其中 * 是当前使用的python版本</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/penv3.png"></div></div>
+
+<h4 id="4、切换python版本"><a href="#4、切换python版本" class="headerlink" title="4、切换python版本"></a>4、切换python版本</h4><p>pyenv global 3.11.5</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv4.png"></div></div>
+
+<h4 id="5、管理虚拟环境"><a href="#5、管理虚拟环境" class="headerlink" title="5、管理虚拟环境"></a>5、管理虚拟环境</h4><p>不用虚拟环境的话，默认所有项目安装的依赖都在一个目录，比如web1项目：flask，requests和hackscript项目：cryptography、pymysql。两个项目的依赖包都安装在&#x2F;Users&#x2F;xxxx&#x2F;.pyenv&#x2F;versions&#x2F;3.10.12&#x2F;lib&#x2F;python3.10&#x2F;site-packages。想要不同项目单独管理依赖，那就必须用到python虚拟环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">创建web1项目的虚拟环境：pyenv virtualenv web1</span><br><span class="line">进入web1虚拟环境：pyenv activate web1</span><br><span class="line">安装web1项目需要的依赖pip install -r requirements.txt</span><br><span class="line">查看当前虚拟环境安装的依赖：pip list</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv5.png"></div></div>
+
+<h4 id="6、切换到其他虚拟环境"><a href="#6、切换到其他虚拟环境" class="headerlink" title="6、切换到其他虚拟环境"></a>6、切换到其他虚拟环境</h4><p>pyenv activate [virtual_name]</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv6.png"></div></div>
+
+<h4 id="7、退出虚拟环境"><a href="#7、退出虚拟环境" class="headerlink" title="7、退出虚拟环境"></a>7、退出虚拟环境</h4><p>Pyenv deactivate</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/pyenv7.png"></div></div>
+
+<div class="tag-plugin quot"><h2 class="content" id="使用Jenv管理jdk" type="text"><a href="#使用Jenv管理jdk" class="headerlink" title="使用Jenv管理jdk"></a>使用Jenv管理jdk</h2></div>
+<div class="tag-plugin quot"><h3 class="content" id="jenv安装" type="icon"><a href="#jenv安装" class="headerlink" title="jenv安装"></a><img class="icon prefix lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">jenv安装</h3></div>
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">brew install jenv</span><br><span class="line"></span><br><span class="line">添加jenv到环境变量</span><br><span class="line">export PATH=&quot;$HOME/.jenv/bin:$PATH</span><br><span class="line">eval &quot;$(jenv init -)&quot;</span><br><span class="line"></span><br><span class="line">执行source ~/.zshrc更新环境变量</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin quot"><h3 class="content" id="jenv使用" type="icon"><a href="#jenv使用" class="headerlink" title="jenv使用"></a><img class="icon prefix lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">jenv使用</h3></div>
+<h4 id="1、安装不同JDK"><a href="#1、安装不同JDK" class="headerlink" title="1、安装不同JDK"></a>1、安装不同JDK</h4><p>jenv和pyenv不一样，pyenv可以直接通过pyenv install [version]安装对应版本的python，而jenv只是管理，安装jdk需要另外独立操作。</p>
+<p>先brew search openjdk查询一下当前可安装的jdk版本</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jenv.png"></div></div>
+
+<p>然后执行,分别安装jdk17和jdk1.8</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install openjdk@17</span><br><span class="line">brew install openjdk@8</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jdk17.png"></div></div>
+
+<p>brew search查看已经安装的JDK，打勾绿色的是已经安装的</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/java17-8.png"></div></div>
+
+<h4 id="2、将不同版本JDK加入jenv中管理"><a href="#2、将不同版本JDK加入jenv中管理" class="headerlink" title="2、将不同版本JDK加入jenv中管理"></a>2、将不同版本JDK加入jenv中管理</h4><p>使用jenv add命令将不同java版本添加到jenv进行管理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jenv add /Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home</span><br><span class="line">jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home</span><br></pre></td></tr></table></figure>
+<p>Mac中jdk路径正常都在&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jdk_path_mac.png"></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/jenv_add.png"></div></div>
+
+<h4 id="3、切换jdk版本"><a href="#3、切换jdk版本" class="headerlink" title="3、切换jdk版本"></a>3、切换jdk版本</h4><p>jenv global [version]</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/changejdk.png"></div></div>
+
+<h4 id="4、支持mvn"><a href="#4、支持mvn" class="headerlink" title="4、支持mvn"></a>4、支持mvn</h4><p>如果环境变量里没有设置JAVA_HOME变量的话，mvn会报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The JAVA_HOME environment variable is not defined correctly,</span><br><span class="line">this environment variable is needed to run this program.</span><br></pre></td></tr></table></figure>
+
+<p>而我们使用jenv来管理，注定就不能在环境变量中添加JAVA_HOME，这样系统默认就使用JAVA_HOME中的jdk了，就无法用jenv来管理不同版本的jdk环境了。</p>
+<p>执行命令：<code>jenv enable-plugin maven</code>就可以了</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2022/10/13/Python%E5%92%8CJava%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/mvnable.png"></div></div>
+
+
+
+
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+
+
+
+<div class="related-wrap reveal" id="related-posts"></div>
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
