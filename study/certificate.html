@@ -20,20 +20,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>study-src：安全学习指南 - minzhi</title>
+  <title>study-src：安全证书 - minzhi</title>
 
   
-    <meta name="description" content="1、攻击和防御维度：攻击性学习资源包括一些漏洞原理、漏洞靶场，防御性学习资源包括一些安全评估模型、安全测试指南、基础的一些漏洞原理。2、安全域维度：应用安全、数据安全、主机安全、办公安全、安全合规。">
+    <meta name="description" content="cissp 学习材料： osg官方学习指南，aio认证考试指南 描述：osg一共8个知识域，21个章节，700多页，预估细看一遍的时间大概300小时+；AIO比OSG还恐怖，1000多页，堪称安全行业圣经。我的节奏是细看完一遍OSG，然后粗看AIO的过程中混合着看OSG第二遍，这个过程中会做题。中间看看停停，大部分时间在周末看看，工作日比较随缘，有时候白天上班太累太忙不开心就不看，有时候下班去游泳">
 <meta property="og:type" content="website">
-<meta property="og:title" content="安全学习指南">
-<meta property="og:url" content="http://m1nzhi.xyz/study/">
+<meta property="og:title" content="安全证书">
+<meta property="og:url" content="http://m1nzhi.xyz/study/certificate">
 <meta property="og:site_name" content="minzhi">
-<meta property="og:description" content="1、攻击和防御维度：攻击性学习资源包括一些漏洞原理、漏洞靶场，防御性学习资源包括一些安全评估模型、安全测试指南、基础的一些漏洞原理。2、安全域维度：应用安全、数据安全、主机安全、办公安全、安全合规。">
+<meta property="og:description" content="cissp 学习材料： osg官方学习指南，aio认证考试指南 描述：osg一共8个知识域，21个章节，700多页，预估细看一遍的时间大概300小时+；AIO比OSG还恐怖，1000多页，堪称安全行业圣经。我的节奏是细看完一遍OSG，然后粗看AIO的过程中混合着看OSG第二遍，这个过程中会做题。中间看看停停，大部分时间在周末看看，工作日比较随缘，有时候白天上班太累太忙不开心就不看，有时候下班去游泳">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-19T14:07:22.739Z">
-<meta property="article:modified_time" content="2023-09-19T14:07:22.739Z">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/cissp1.png">
+<meta property="og:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/cissp2.png">
+<meta property="article:published_time" content="2023-09-19T15:41:39.459Z">
+<meta property="article:modified_time" content="2023-09-19T15:41:39.459Z">
 <meta property="article:author" content="minzhizhou">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://m1nzhi.oss-cn-beijing.aliyuncs.com/cissp1.png">
 <meta name="twitter:creator" content="@minzhizhou1215">
   
   
@@ -79,7 +82,7 @@
 
 <div class="widgets">
 
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">安全学习指南</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/study/#start"><span class="toc-text">安全学习指南</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/study/redteam"><span class="toc-text">攻击性资源</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/study/blueteam"><span class="toc-text">防御性资源</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/study/certificate"><span class="toc-text">安全证书</span></a></div></div></widget>
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">安全证书</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/study/#start"><span class="toc-text">安全学习指南</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/study/redteam"><span class="toc-text">攻击性资源</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/study/blueteam"><span class="toc-text">防御性资源</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/study/certificate"><span class="toc-text">安全证书</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cissp"><span class="toc-text">cissp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cisp"><span class="toc-text">cisp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cisp-pte"><span class="toc-text">cisp-pte</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#oscp"><span class="toc-text">oscp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#oswe"><span class="toc-text">oswe</span></a></li></ol></div></div></widget>
 </div>
 
 
@@ -91,11 +94,42 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/study/">study-src</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-09-19T14:07:22.739Z">2023-09-19</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/study/">study-src</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-09-19T15:41:39.459Z">2023-09-19</time></div></div>
 
   <article class='md-text content wiki'>
-  <h1 class="article-title"><span>安全学习指南</span></h1>
-  <p>1、攻击和防御维度：攻击性学习资源包括一些漏洞原理、漏洞靶场，防御性学习资源包括一些安全评估模型、安全测试指南、基础的一些漏洞原理。<br>2、安全域维度：应用安全、数据安全、主机安全、办公安全、安全合规。</p>
+  <h1 class="article-title"><span>安全证书</span></h1>
+  <h2 id="cissp"><a href="#cissp" class="headerlink" title="cissp"></a>cissp</h2><ul>
+<li>学习材料： osg官方学习指南，aio认证考试指南</li>
+<li>描述：osg一共8个知识域，21个章节，700多页，预估细看一遍的时间大概300小时+；AIO比OSG还恐怖，1000多页，堪称安全行业圣经。我的节奏是细看完一遍OSG，然后粗看AIO的过程中混合着看OSG第二遍，这个过程中会做题。中间看看停停，大部分时间在周末看看，工作日比较随缘，有时候白天上班太累太忙不开心就不看，有时候下班去游泳回家都10点多了就不想看了。为了保证一次能过，我备考了快2年了。本科学历的人从事安全工作4年才能拿证，专科学历要从事安全工作5年才能拿证，通过考试后需要有人给你背书（已经有cissp认证的人）才能拿到证书。个人不推荐去培训班，因为我是报了班的，我的感受培训走个过场，（周末班）强行8个周末讲完8个osg知识域。800多页的osg，怎么消化的了? 回来还得自己看书做题，白白浪费几千块的培训费不值当。</li>
+<li>适合人群：想往安全管理、安全架构转型的、有着多年的安全工作经验的人员。</li>
+<li>推荐指数：🌟🌟🌟🌟🌟🌟 （安全行业最有含金量的认证之一）</li>
+<li>资料下载：关注公众号<code>infosecnote</code>,回复<code>cissp备考资料</code>获取下载链接。<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/cissp1.png" alt="cissp"></div><div class="image-meta"><span class="image-caption center">cissp</span></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://m1nzhi.oss-cn-beijing.aliyuncs.com/cissp2.png" alt="cissp"></div><div class="image-meta"><span class="image-caption center">cissp</span></div></div></li>
+</ul>
+<h2 id="cisp"><a href="#cisp" class="headerlink" title="cisp"></a>cisp</h2><ul>
+<li>描述：这个推荐报培训班，会发培训资料，最重要的是题库。cisp含金量没cissp高的原因就是题目永远都是从题库中抽，而cissp每次考试基本都是新题，很少从历史题库中拿题出来考。所以cisp做两遍题库就能过。</li>
+<li>适合人群：混证书的安全从业人员（说句实在话，含金量确实低，国内有些招标需要用到，除此之外没其他啥用处了）</li>
+<li>推荐指数：🌟🌟🌟</li>
+</ul>
+<h2 id="cisp-pte"><a href="#cisp-pte" class="headerlink" title="cisp-pte"></a>cisp-pte</h2><ul>
+<li>描述：这是cisp渗透测试认证，从圈内的反应度来看，含金量比cisp高。在国内，cisp-pte感觉比下面同类型的oscp要好使。</li>
+<li>适合人群：渗透测试从业者</li>
+<li>推荐指数：🌟🌟🌟🌟</li>
+</ul>
+<h2 id="oscp"><a href="#oscp" class="headerlink" title="oscp"></a>oscp</h2><ul>
+<li>学习材料：hackthebox，try hack me，vulnhub，官方lab</li>
+<li>报名链接：<a target="_blank" rel="noopener" href="https://www.offsec.com/courses/pen-200/">https://www.offsec.com/courses/pen-200/</a></li>
+<li>描述：这个是渗透测试认证，pentest系列。offsec组织知名度最高的一个认证。报名费1599美金，包含了90天lab学习，1次考试。建议先把hackthebox靶场都打一遍，然后再去报名开始练习官方的lab。一次不通过，下一次交200多美金就可以续考了。相对来说还是蛮简单的，考察的是渗透测试的思路，不会拿什么0day出来考，都是已知的漏洞。一般都是nmap扫出一些端口，大部分都是80的web应用有漏洞。然后去google搜web应用对应的漏洞，然后拿到服务器web权限，然后提权拿到root权限。</li>
+<li>适合人群：渗透测试从业者</li>
+<li>推荐指数：🌟🌟🌟🌟</li>
+</ul>
+<h2 id="oswe"><a href="#oswe" class="headerlink" title="oswe"></a>oswe</h2><ul>
+<li>学习材料：web代码审计，偏PHP为主。可以多去CTF练习平台多多练习，当然owasp top10漏洞原理是基础。</li>
+<li>报名链接：<a target="_blank" rel="noopener" href="https://www.offsec.com/courses/web-300/">https://www.offsec.com/courses/web-300/</a></li>
+<li>描述：这个是offsec组织web安全专家认证。和oscp相比，它更偏向于漏洞原理本身，考察代码审计为主。可以按照官方给的教学大纲针对性的进行学习：</li>
+<li>适合人群：应用安全工程师、渗透测试人员</li>
+<li>推荐指数：🌟🌟🌟🌟</li>
+</ul>
 
   
   
@@ -103,7 +137,7 @@
 
   </article>
   
-<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/study/redteam">攻击性资源</a></div></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/study/blueteam">防御性资源</a></div><div class="item" id="next"></div></section></div>
 
   
 
